@@ -31,12 +31,10 @@ bool validateAndAlert(bool condition, const std::string &message) {
 bool areVitalsNormal(float temperatureCelsius, float pulseRateBpm, float spo2Percentage) {
   return validateAndAlert(
            isWithinRange(temperatureCelsius, 95.0, 102.0),
-           "Temperature (°F) is critical!"
-         ) &&
+           "Temperature (°F) is critical!") &&
          validateAndAlert(
            isWithinRange(pulseRateBpm, 60, 100),
-           "Pulse Rate (bpm) is out of range!"
-         ) &&
+           "Pulse Rate (bpm) is out of range!") &&
          validateAndAlert(
            isWithinRange(spo2Percentage, 0, 90),
            "Oxygen Saturation (SpO2 %) is out of range!"
