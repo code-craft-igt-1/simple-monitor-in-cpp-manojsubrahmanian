@@ -1,68 +1,77 @@
 #include "./monitor.h"
-
 #include "gtest/gtest.h"
 
-// Test Case: All vitals within normal range
-TEST(AreVitalsNormalTest, VitalsWithinNormalRange) {
-    EXPECT_FALSE(areVitalsNormal(98.6, 75, 95));
+// Test Case: Temperature Just Below Lower Limit
+TEST(AreVitalsNormalTest, TemperatureJustBelowLowerLimit) {
+    EXPECT_FALSE(areVitalsNormal(95.0, 75, 89));
 }
 
-// Test Case: Temperature out of range - lower limit
-TEST(AreVitalsNormalTest, TemperatureBelowLowerLimit) {
-    EXPECT_FALSE(areVitalsNormal(94.9, 75, 95));
+// Test Case: Temperature Just Above Lower Limit
+TEST(AreVitalsNormalTest, TemperatureJustAboveLowerLimit) {
+    EXPECT_TRUE(areVitalsNormal(95.1, 75, 89));
 }
 
-// Test Case: Temperature out of range - upper limit
-TEST(AreVitalsNormalTest, TemperatureAboveUpperLimit) {
-    EXPECT_FALSE(areVitalsNormal(102.1, 75, 95));
+// Test Case: Temperature Just Below Upper Limit
+TEST(AreVitalsNormalTest, TemperatureJustBelowUpperLimit) {
+    EXPECT_TRUE(areVitalsNormal(101.9, 75, 89));
 }
 
-// Test Case: Pulse rate out of range - lower limit
-TEST(AreVitalsNormalTest, PulseRateBelowLowerLimit) {
-    EXPECT_FALSE(areVitalsNormal(98.6, 59.9, 95));
+// Test Case: Temperature Just Above Upper Limit
+TEST(AreVitalsNormalTest, TemperatureJustAboveUpperLimit) {
+    EXPECT_FALSE(areVitalsNormal(102.0, 75, 89));
 }
 
-// Test Case: Pulse rate out of range - upper limit
-TEST(AreVitalsNormalTest, PulseRateAboveUpperLimit) {
-    EXPECT_FALSE(areVitalsNormal(98.6, 100.1, 95));
+// Test Case: Pulse Rate Just Below Lower Limit
+TEST(AreVitalsNormalTest, PulseRateJustBelowLowerLimit) {
+    EXPECT_FALSE(areVitalsNormal(98.6, 60.0, 89));
 }
 
-// Test Case: Oxygen saturation out of range - lower limit
-TEST(AreVitalsNormalTest, Spo2BelowLowerLimit) {
-    EXPECT_FALSE(areVitalsNormal(98.6, 75, -0.1));
+// Test Case: Pulse Rate Just Above Lower Limit
+TEST(AreVitalsNormalTest, PulseRateJustAboveLowerLimit) {
+    EXPECT_TRUE(areVitalsNormal(98.6, 60.1, 89));
 }
 
-// Test Case: Oxygen saturation out of range - upper limit
-TEST(AreVitalsNormalTest, Spo2AboveUpperLimit) {
-    EXPECT_FALSE(areVitalsNormal(98.6, 75, 90));
+// Test Case: Pulse Rate Just Below Upper Limit
+TEST(AreVitalsNormalTest, PulseRateJustBelowUpperLimit) {
+    EXPECT_TRUE(areVitalsNormal(98.6, 99.9, 89));
 }
 
-// Test Case: Temperature at the lower limit
-TEST(AreVitalsNormalTest, TemperatureAtLowerLimit) {
-    EXPECT_FALSE(areVitalsNormal(95, 75, 95));
+// Test Case: Pulse Rate Just Above Upper Limit
+TEST(AreVitalsNormalTest, PulseRateJustAboveUpperLimit) {
+    EXPECT_FALSE(areVitalsNormal(98.6, 100.0, 89));
 }
 
-// Test Case: Temperature at the upper limit
-TEST(AreVitalsNormalTest, TemperatureAtUpperLimit) {
-    EXPECT_FALSE(areVitalsNormal(102, 75, 95));
+// Test Case: SpO2 Just Below Lower Limit
+TEST(AreVitalsNormalTest, Spo2JustBelowLowerLimit) {
+    EXPECT_FALSE(areVitalsNormal(98.6, 75, 0.0));
 }
 
-// Test Case: Pulse rate at the lower limit
-TEST(AreVitalsNormalTest, PulseRateAtLowerLimit) {
-    EXPECT_FALSE(areVitalsNormal(98.6, 60, 95));
+// Test Case: SpO2 Just Above Lower Limit
+TEST(AreVitalsNormalTest, Spo2JustAboveLowerLimit) {
+    EXPECT_TRUE(areVitalsNormal(98.6, 75, 1.0));
 }
 
-// Test Case: Pulse rate at the upper limit
-TEST(AreVitalsNormalTest, PulseRateAtUpperLimit) {
-    EXPECT_FALSE(areVitalsNormal(98.6, 100, 95));
+// Test Case: SpO2 Just Below Upper Limit
+TEST(AreVitalsNormalTest, Spo2JustBelowUpperLimit) {
+    EXPECT_TRUE(areVitalsNormal(98.6, 75, 89.9));
 }
 
-// Test Case: Oxygen saturation at the lower limit
-TEST(AreVitalsNormalTest, Spo2AtLowerLimit) {
-    EXPECT_FALSE(areVitalsNormal(98.6, 75, 0));
+// Test Case: SpO2 Just Above Upper Limit
+TEST(AreVitalsNormalTest, Spo2JustAboveUpperLimit) {
+    EXPECT_FALSE(areVitalsNormal(98.6, 75, 90.0));
 }
 
-// Test Case: Oxygen saturation at the upper limit
-TEST(AreVitalsNormalTest, Spo2AtUpperLimit) {
-    EXPECT_FALSE(areVitalsNormal(98.6, 75, 90));
+// Test Case: All Vitals Within Normal Range
+TEST(AreVitalsNormalTest, AllVitalsWithinNormalRange) {
+    EXPECT_TRUE(areVitalsNormal(98.6, 75, 89));
+}
+
+// Test Case: All Vitals Just Inside Lower Limits
+TEST(AreVitalsNormalTest, AllVitalsJustInsideLowerLimits) {
+    EXPECT_TRUE(areVitalsNormal(95.1, 60.1, 1.0));
+}
+
+// Test Case: All Vitals Just Inside Upper Limits
+TEST(AreVitalsNormalTest, AllVitalsJustInsideUpperLimits) {
+    EXPECT_TRUE(areVitalsNormal(101.9, 99.9, 89.9));
 }
