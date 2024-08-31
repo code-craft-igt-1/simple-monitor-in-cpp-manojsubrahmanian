@@ -37,8 +37,7 @@ bool areVitalsNormal(float temperatureCelsius, float pulseRateBpm, float spo2Per
            "Pulse Rate (bpm) is out of range!") &&
          validateAndAlert(
            isWithinRange(spo2Percentage, 0, 90),
-           "Oxygen Saturation (SpO2 %) is out of range!"
-         );
+           "Oxygen Saturation (SpO2 %) is out of range!");
 }
 
 
