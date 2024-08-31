@@ -1,3 +1,3 @@
 #pragma once
 
-int areVitalsNormal(float temperature, float pulseRate, float spo2);
+bool areVitalsNormal(float temperature, float pulseRate, float spo2);
