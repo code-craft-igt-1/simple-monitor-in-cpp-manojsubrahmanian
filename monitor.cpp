@@ -5,6 +5,14 @@
 #include <iostream>
 using std::cout, std::flush, std::this_thread::sleep_for, std::chrono::seconds;
 
+// Define constants for the upper and lower limits
+const double TEMPERATURE_LOWER_LIMIT = 95.0;
+const double TEMPERATURE_UPPER_LIMIT = 102.0;
+const double PULSE_RATE_LOWER_LIMIT = 60.0;
+const double PULSE_RATE_UPPER_LIMIT = 100.0;
+const double SPO2_LOWER_LIMIT = 0.0;
+const double SPO2_UPPER_LIMIT = 90.0;
+
 bool isWithinRange(double value, double lowerLimit, double upperLimit) {
   return (value > lowerLimit) && (value < upperLimit);
 }
@@ -28,17 +36,14 @@ bool validateAndAlert(bool condition, const std::string &message) {
 }
 
 // Updated function with units in comments
-bool areVitalsNormal(float temperatureCelsius, float pulseRateBpm, float spo2Percentage) {
+bool areVitalsNormal(float temperatureFahrenheit, float pulseRateBpm, float spo2Percentage) {
   return validateAndAlert(
-           isWithinRange(temperatureCelsius, 95.0, 102.0),
+           isWithinRange(temperatureFahrenheit, TEMPERATURE_LOWER_LIMIT, TEMPERATURE_UPPER_LIMIT),
            "Temperature (°F) is critical!") &&
          validateAndAlert(
-           isWithinRange(pulseRateBpm, 60, 100),
+           isWithinRange(pulseRateBpm, PULSE_RATE_LOWER_LIMIT, PULSE_RATE_UPPER_LIMIT),
            "Pulse Rate (bpm) is out of range!") &&
          validateAndAlert(
-           isWithinRange(spo2Percentage, 0, 90),
+           isWithinRange(spo2Percentage, SPO2_LOWER_LIMIT, SPO2_UPPER_LIMIT),
            "Oxygen Saturation (SpO2 %) is out of range!");
 }
-
-
-

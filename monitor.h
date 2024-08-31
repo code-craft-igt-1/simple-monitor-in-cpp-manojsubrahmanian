@@ -1,3 +1,3 @@
 #pragma once
 
-bool areVitalsNormal(float temperature, float pulseRate, float spo2);
+bool areVitalsNormal(float temperatureFahrenheit, float pulseRateBpm, float spo2Percentage);
