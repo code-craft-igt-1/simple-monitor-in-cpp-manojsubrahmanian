@@ -21,7 +21,7 @@ void showAlertAnimation(int durationInSeconds) {
 bool validateAndAlert(bool condition, const std::string &message) {
   if (!condition) {
     cout << message << "\n";
-    showAlertAnimation(2);  
+    showAlertAnimation(2);
     return false;
   }
   return true;
@@ -29,9 +29,19 @@ bool validateAndAlert(bool condition, const std::string &message) {
 
 // Updated function with units in comments
 bool areVitalsNormal(float temperatureCelsius, float pulseRateBpm, float spo2Percentage) {
-  return validateAndAlert(isWithinRange(temperatureCelsius, 95.0, 102.0), "Temperature (°F) is critical!") &&
-         validateAndAlert(isWithinRange(pulseRateBpm, 60, 100), "Pulse Rate (bpm) is out of range!") &&
-         validateAndAlert(isWithinRange(spo2Percentage, 0, 90), "Oxygen Saturation (SpO2 %) is out of range!");
+  return validateAndAlert(
+           isWithinRange(temperatureCelsius, 95.0, 102.0),
+           "Temperature (°F) is critical!"
+         ) &&
+         validateAndAlert(
+           isWithinRange(pulseRateBpm, 60, 100),
+           "Pulse Rate (bpm) is out of range!"
+         ) &&
+         validateAndAlert(
+           isWithinRange(spo2Percentage, 0, 90),
+           "Oxygen Saturation (SpO2 %) is out of range!"
+         );
 }
+
 
 
