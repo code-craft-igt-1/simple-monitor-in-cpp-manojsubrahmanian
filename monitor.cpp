@@ -30,13 +30,13 @@ bool validateAndAlert(bool condition, const std::string &message) {
 bool areVitalsNormal(double temperatureFahrenheit, double pulseRateBpm, double spo2Percentage) {
   bool temperatureNormal = validateAndAlert(
            isWithinRange(temperatureFahrenheit, TEMPERATURE_LOWER_LIMIT, TEMPERATURE_UPPER_LIMIT),
-           "Temperature (°F) is critical!"); 
+           "Temperature (°F) is critical!");
   bool pulseNormal = validateAndAlert(
            isWithinRange(pulseRateBpm, PULSE_RATE_LOWER_LIMIT, PULSE_RATE_UPPER_LIMIT),
            "Pulse Rate (bpm) is out of range!");
   bool spo2Normal = validateAndAlert(
            isWithinRange(spo2Percentage, SPO2_LOWER_LIMIT, SPO2_UPPER_LIMIT),
            "Oxygen Saturation (SpO2 %) is out of range!");
-           
+
   return temperatureNormal && pulseNormal && spo2Normal;
 }
