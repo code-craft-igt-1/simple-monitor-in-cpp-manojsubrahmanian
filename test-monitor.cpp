@@ -96,7 +96,7 @@ TEST(AreVitalsNormalTest, Spo2OutOfRange) {
 // Test Case: All Vitals Borderline (Temperature at upper limit, Pulse Rate at upper limit,
 // SpO2 at lower limit)
 TEST(AreVitalsNormalTest, VitalsBorderline) {
-    EXPECT_FALSE(areVitalsNormal(TEMPERATURE_UPPER_LIMIT, PULSE_RATE_UPPER_LIMIT, 
+    EXPECT_FALSE(areVitalsNormal(TEMPERATURE_UPPER_LIMIT, PULSE_RATE_UPPER_LIMIT,
                                 SPO2_LOWER_LIMIT));
 }
 
