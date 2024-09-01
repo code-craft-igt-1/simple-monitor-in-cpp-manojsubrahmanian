@@ -68,13 +68,13 @@ TEST(AreVitalsNormalTest, AllVitalsWithinNormalRange) {
 
 // Test Case: All Vitals Just Inside Lower Limits
 TEST(AreVitalsNormalTest, AllVitalsJustInsideLowerLimits) {
-    EXPECT_TRUE(areVitalsNormal(TEMPERATURE_LOWER_LIMIT + 0.1, PULSE_RATE_LOWER_LIMIT + 0.1, 
+    EXPECT_TRUE(areVitalsNormal(TEMPERATURE_LOWER_LIMIT + 0.1, PULSE_RATE_LOWER_LIMIT + 0.1,
                                 SPO2_LOWER_LIMIT + 0.1));
 }
 
 // Test Case: All Vitals Just Inside Upper Limits
 TEST(AreVitalsNormalTest, AllVitalsJustInsideUpperLimits) {
-    EXPECT_TRUE(areVitalsNormal(TEMPERATURE_UPPER_LIMIT - 0.1, PULSE_RATE_UPPER_LIMIT - 0.1, 
+    EXPECT_TRUE(areVitalsNormal(TEMPERATURE_UPPER_LIMIT - 0.1, PULSE_RATE_UPPER_LIMIT - 0.1,
                                 SPO2_UPPER_LIMIT - 0.1));
 }
 
@@ -93,25 +93,26 @@ TEST(AreVitalsNormalTest, Spo2OutOfRange) {
     EXPECT_FALSE(areVitalsNormal(98.6, 75, SPO2_LOWER_LIMIT - 0.1));
 }
 
-// Test Case: All Vitals Borderline (Temperature at upper limit, Pulse Rate at upper limit, 
+// Test Case: All Vitals Borderline (Temperature at upper limit, Pulse Rate at upper limit,
 // SpO2 at lower limit)
 TEST(AreVitalsNormalTest, VitalsBorderline) {
-    EXPECT_FALSE(areVitalsNormal(TEMPERATURE_UPPER_LIMIT, PULSE_RATE_UPPER_LIMIT, SPO2_LOWER_LIMIT));
+    EXPECT_FALSE(areVitalsNormal(TEMPERATURE_UPPER_LIMIT, PULSE_RATE_UPPER_LIMIT, 
+                                SPO2_LOWER_LIMIT));
 }
 
-// Test Case: Only Temperature Out of Range (Temperature above upper limit, Pulse Rate 
+// Test Case: Only Temperature Out of Range (Temperature above upper limit, Pulse Rate
 // and SpO2 within range)
 TEST(AreVitalsNormalTest, OnlyTemperatureOutOfRange) {
     EXPECT_FALSE(areVitalsNormal(TEMPERATURE_UPPER_LIMIT + 0.1, 75, 95));
 }
 
-// Test Case: Only Pulse Rate Out of Range (Pulse Rate above upper limit, Temperature 
+// Test Case: Only Pulse Rate Out of Range (Pulse Rate above upper limit, Temperature
 // and SpO2 within range)
 TEST(AreVitalsNormalTest, OnlyPulseRateOutOfRange) {
     EXPECT_FALSE(areVitalsNormal(98.6, PULSE_RATE_UPPER_LIMIT + 0.1, 95));
 }
 
-// Test Case: Only SpO2 Out of Range (SpO2 above upper limit, Temperature and 
+// Test Case: Only SpO2 Out of Range (SpO2 above upper limit, Temperature and
 // Pulse Rate within range)
 TEST(AreVitalsNormalTest, OnlySpo2OutOfRange) {
     EXPECT_FALSE(areVitalsNormal(98.6, 75, SPO2_UPPER_LIMIT + 0.1));
