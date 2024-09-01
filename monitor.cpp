@@ -18,8 +18,8 @@ void showAlertAnimation(int durationInSeconds) {
   }
 }
 
-void validateAndAlert(bool condition, const std::string &message) {
-  if (!condition) {
+void validateAndAlert(bool isInRange, const std::string &message) {
+  if (!isInRange) {
     cout << message << "\n";
     showAlertAnimation(2);
   }
