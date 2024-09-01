@@ -5,14 +5,6 @@
 #include <iostream>
 using std::cout, std::flush, std::this_thread::sleep_for, std::chrono::seconds;
 
-// Define constants for the upper and lower limits
-const double TEMPERATURE_LOWER_LIMIT = 95.0;
-const double TEMPERATURE_UPPER_LIMIT = 102.0;
-const double PULSE_RATE_LOWER_LIMIT = 60.0;
-const double PULSE_RATE_UPPER_LIMIT = 100.0;
-const double SPO2_LOWER_LIMIT = 0.0;
-const double SPO2_UPPER_LIMIT = 90.0;
-
 bool isWithinRange(double value, double lowerLimit, double upperLimit) {
   return (value > lowerLimit) && (value < upperLimit);
 }
@@ -30,13 +22,12 @@ bool validateAndAlert(bool condition, const std::string &message) {
   if (!condition) {
     cout << message << "\n";
     showAlertAnimation(2);
-    return false;
   }
-  return true;
+  return condition;
 }
 
 // Updated function with units in comments
-bool areVitalsNormal(float temperatureFahrenheit, float pulseRateBpm, float spo2Percentage) {
+bool areVitalsNormal(double temperatureFahrenheit, double pulseRateBpm, double spo2Percentage) {
   return validateAndAlert(
            isWithinRange(temperatureFahrenheit, TEMPERATURE_LOWER_LIMIT, TEMPERATURE_UPPER_LIMIT),
            "Temperature (°F) is critical!") &&
