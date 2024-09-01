@@ -68,12 +68,14 @@ TEST(AreVitalsNormalTest, AllVitalsWithinNormalRange) {
 
 // Test Case: All Vitals Just Inside Lower Limits
 TEST(AreVitalsNormalTest, AllVitalsJustInsideLowerLimits) {
-    EXPECT_TRUE(areVitalsNormal(TEMPERATURE_LOWER_LIMIT + 0.1, PULSE_RATE_LOWER_LIMIT + 0.1, SPO2_LOWER_LIMIT + 0.1));
+    EXPECT_TRUE(areVitalsNormal(TEMPERATURE_LOWER_LIMIT + 0.1, PULSE_RATE_LOWER_LIMIT + 0.1, 
+                                SPO2_LOWER_LIMIT + 0.1));
 }
 
 // Test Case: All Vitals Just Inside Upper Limits
 TEST(AreVitalsNormalTest, AllVitalsJustInsideUpperLimits) {
-    EXPECT_TRUE(areVitalsNormal(TEMPERATURE_UPPER_LIMIT - 0.1, PULSE_RATE_UPPER_LIMIT - 0.1, SPO2_UPPER_LIMIT - 0.1));
+    EXPECT_TRUE(areVitalsNormal(TEMPERATURE_UPPER_LIMIT - 0.1, PULSE_RATE_UPPER_LIMIT - 0.1, 
+                                SPO2_UPPER_LIMIT - 0.1));
 }
 
 // Test Case: All Vitals Out of Range (Temperature out of range)
