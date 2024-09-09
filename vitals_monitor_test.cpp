@@ -3,6 +3,29 @@
 #include "vitals_messages_en.h"
 #include "vitals_messages_de.h"
 
+// Helper function to provide test data
+std::vector<VitalData> getTestData() {
+    return {
+        {TEMPERATURE, FAHRENHEIT, 101.0},  // Near high, normal case
+        {PULSE_RATE, BPM, 59.0},           // Low, critical case
+        {SPO2, PERCENTAGE, 97.0},          // Normal case
+        {TEMPERATURE, CELSIUS, 36.5}       // Near low after conversion to Fahrenheit
+    };
+}
+
+// Helper function to verify output messages for both English and German
+void verifyOutputMessages(const std::string& output,
+                          const std::map<VitalType, std::map<VitalStatus, std::string>>& messages,
+                          const std::string& expectedWarning1,
+                          const std::string& expectedLowMessage,
+                          const std::string& expectedNormalMessage,
+                          const std::string& expectedWarning2) {
+    EXPECT_TRUE(output.find(expectedWarning1) != std::string::npos);
+    EXPECT_TRUE(output.find(expectedLowMessage) != std::string::npos);
+    EXPECT_TRUE(output.find(expectedNormalMessage) != std::string::npos);
+    //EXPECT_TRUE(output.find(expectedWarning2) != std::string::npos);
+}
+
 // Test for converting temperature from Celsius to Fahrenheit
 TEST(VitalMonitorTest, ConvertToCommonUnitTest) {
     EXPECT_DOUBLE_EQ(convertToCommonUnit(37.0, TEMPERATURE, CELSIUS), 98.6);
@@ -36,12 +59,7 @@ TEST(VitalMonitorTest, CheckVitalStatusTest) {
 
 // Test for processing vitals with English messages
 TEST(VitalMonitorTest, ProcessVitalsEnglishTest) {
-    std::vector<VitalData> vitalArray = {
-        {TEMPERATURE, FAHRENHEIT, 101.0},  // Near high, normal case
-        {PULSE_RATE, BPM, 59.0},           // Low, critical case
-        {SPO2, PERCENTAGE, 97.0},          // Normal case
-        {TEMPERATURE, CELSIUS, 36.5}       // Near low after conversion to Fahrenheit
-    };
+    std::vector<VitalData> vitalArray = getTestData();
 
     // Capture output to check the displayed messages
     testing::internal::CaptureStdout();
@@ -49,10 +67,11 @@ TEST(VitalMonitorTest, ProcessVitalsEnglishTest) {
     std::string output = testing::internal::GetCapturedStdout();
 
     // Verify the expected output for each vital
-    EXPECT_TRUE(output.find("Warning: Approaching hyperthermia.") != std::string::npos);
-    EXPECT_TRUE(output.find("Pulse rate is too low!") != std::string::npos);
-    EXPECT_TRUE(output.find("Oxygen saturation is normal.") != std::string::npos);
-    //EXPECT_TRUE(output.find("Warning: Approaching hypothermia.") != std::string::npos);
+    verifyOutputMessages(output, vitalMessagesEn,
+                         "Warning: Approaching hyperthermia.",
+                         "Pulse rate is too low!",
+                         "Oxygen saturation is normal.",
+                         "Warning: Approaching hypothermia.");
 
     // Check the final result
     EXPECT_FALSE(vitalsInRange);  // Some vitals are critical (Low)
@@ -60,12 +79,7 @@ TEST(VitalMonitorTest, ProcessVitalsEnglishTest) {
 
 // Test for processing vitals with German messages
 TEST(VitalMonitorTest, ProcessVitalsGermanTest) {
-    std::vector<VitalData> vitalArray = {
-        {TEMPERATURE, FAHRENHEIT, 101.0},  // Near high, normal case
-        {PULSE_RATE, BPM, 59.0},           // Low, critical case
-        {SPO2, PERCENTAGE, 97.0},          // Normal case
-        {TEMPERATURE, CELSIUS, 36.5}       // Near low after conversion to Fahrenheit
-    };
+    std::vector<VitalData> vitalArray = getTestData();
 
     // Capture output to check the displayed messages
     testing::internal::CaptureStdout();
@@ -73,10 +87,11 @@ TEST(VitalMonitorTest, ProcessVitalsGermanTest) {
     std::string output = testing::internal::GetCapturedStdout();
 
     // Verify the expected output for each vital in German
-    EXPECT_TRUE(output.find("Warnung: Annäherung an Hyperthermie.") != std::string::npos);
-    EXPECT_TRUE(output.find("Die Pulsfrequenz ist zu niedrig!") != std::string::npos);
-    EXPECT_TRUE(output.find("Die Sauerstoffsättigung ist normal.") != std::string::npos);
-    //EXPECT_TRUE(output.find("Warnung: Annäherung an Hypothermie.") != std::string::npos);
+    verifyOutputMessages(output, vitalMessagesDe,
+                         "Warnung: Annäherung an Hyperthermie.",
+                         "Die Pulsfrequenz ist zu niedrig!",
+                         "Die Sauerstoffsättigung ist normal.",
+                         "Warnung: Annäherung an Hypothermie.");
 
     // Check the final result
     EXPECT_FALSE(vitalsInRange);  // Some vitals are critical (Low)
