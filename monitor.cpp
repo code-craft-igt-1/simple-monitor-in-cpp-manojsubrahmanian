@@ -5,11 +5,21 @@
 #include <iostream>
 using std::cout, std::flush, std::this_thread::sleep_for, std::chrono::seconds;
 
+struct VitalLimits {
+    double low;
+    double nearLow;
+    double nearHigh;
+    double high;
+};
+
+
+
 bool isWithinRange(double value, double lowerLimit, double upperLimit) {
   return (value > lowerLimit) && (value < upperLimit);
 }
 
-void showAlertAnimation(int durationInSeconds) {
+void showAlertWithAnimation(const std::string &message, int durationInSeconds) {
+  cout << message << "\n";
   for (int i = 0; i < durationInSeconds / 2; i++) {
     cout << "\r* " << flush;
     sleep_for(seconds(1));
@@ -20,8 +30,7 @@ void showAlertAnimation(int durationInSeconds) {
 
 void validateAndAlert(bool isInRange, const std::string &message) {
   if (!isInRange) {
-    cout << message << "\n";
-    showAlertAnimation(2);
+    showAlertWithAnimation(message, 2);
   }
 }
 
