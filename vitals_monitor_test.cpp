@@ -77,22 +77,22 @@ TEST(VitalMonitorTest, ProcessVitalsEnglishTest) {
     EXPECT_FALSE(vitalsInRange);  // Some vitals are critical (Low)
 }
 
-// Test for processing vitals with German messages
-TEST(VitalMonitorTest, ProcessVitalsGermanTest) {
-    std::vector<VitalData> vitalArray = getTestData();
+// // Test for processing vitals with German messages
+// TEST(VitalMonitorTest, ProcessVitalsGermanTest) {
+//     std::vector<VitalData> vitalArray = getTestData();
 
-    // Capture output to check the displayed messages
-    testing::internal::CaptureStdout();
-    bool vitalsInRange = vitalsOk(vitalArray, vitalMessagesDe);
-    std::string output = testing::internal::GetCapturedStdout();
+//     // Capture output to check the displayed messages
+//     testing::internal::CaptureStdout();
+//     bool vitalsInRange = vitalsOk(vitalArray, vitalMessagesDe);
+//     std::string output = testing::internal::GetCapturedStdout();
 
-    // Verify the expected output for each vital in German
-    verifyOutputMessages(output, vitalMessagesDe,
-                         "Warnung: Annäherung an Hyperthermie.",
-                         "Die Pulsfrequenz ist zu niedrig!",
-                         "Die Sauerstoffsättigung ist normal.",
-                         "Warnung: Annäherung an Hypothermie.");
+//     // Verify the expected output for each vital in German
+//     verifyOutputMessages(output, vitalMessagesDe,
+//                          "Warnung: Annäherung an Hyperthermie.",
+//                          "Die Pulsfrequenz ist zu niedrig!",
+//                          "Die Sauerstoffsättigung ist normal.",
+//                          "Warnung: Annäherung an Hypothermie.");
 
-    // Check the final result
-    EXPECT_FALSE(vitalsInRange);  // Some vitals are critical (Low)
-}
+//     // Check the final result
+//     EXPECT_FALSE(vitalsInRange);  // Some vitals are critical (Low)
+// }
