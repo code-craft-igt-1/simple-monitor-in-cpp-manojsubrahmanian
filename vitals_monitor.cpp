@@ -5,7 +5,6 @@
 
 // Struct to hold conversion information
 struct ConversionRule {
-    VitalType type;
     VitalUnit fromUnit;
     VitalUnit toUnit;
     std::function<double(double)> convertFunc;
@@ -13,18 +12,18 @@ struct ConversionRule {
 
 // List of conversion rules
 std::vector<ConversionRule> conversionRules = {
-    {TEMPERATURE, CELSIUS, FAHRENHEIT, [](double value) { return value * 9.0 / 5.0 + 32; }},
-    {TEMPERATURE, FAHRENHEIT, FAHRENHEIT, [](double value) { return value; }},
-    {PULSE_RATE, BPM, BPM, [](double value) { return value; }},
-    {SPO2, PERCENTAGE, PERCENTAGE, [](double value) { return value; }},
+    {CELSIUS, FAHRENHEIT, [](double value) { return value * 9.0 / 5.0 + 32; }},
+    {FAHRENHEIT, FAHRENHEIT, [](double value) { return value; }},
+    {BPM, BPM, [](double value) { return value; }},
+    {PERCENTAGE, PERCENTAGE, [](double value) { return value; }},
 };
 
 // Function to convert values to the appropriate unit using vector functions
-double convertToCommonUnit(double value, VitalType type, VitalUnit unit) {
+double convertToCommonUnit(double value, VitalUnit fromUnit) {
     // Find the matching conversion rule
     auto it = std::find_if(conversionRules.begin(), conversionRules.end(),
-                           [type, unit](const ConversionRule& rule) {
-                               return rule.type == type && rule.fromUnit == unit;
+                           [fromUnit](const ConversionRule& rule) {
+                               return rule.fromUnit == fromUnit;
                            });
 
     // Apply the conversion function if a rule is found
@@ -35,7 +34,7 @@ double convertToCommonUnit(double value, VitalType type, VitalUnit unit) {
 void checkVitalStatus(VitalData* vital) {
     if (vital == nullptr) return;  // Guard clause for null pointers
 
-    double convertedValue = convertToCommonUnit(vital->value, vital->type, vital->unit);
+    double convertedValue = convertToCommonUnit(vital->value, vital->unit);
     const VitalLimits& limits = vitalThresholds.at(vital->type);
 
     // Array of thresholds to map ranges to status
