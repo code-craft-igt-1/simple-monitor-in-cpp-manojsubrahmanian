@@ -1,6 +1,7 @@
-#include "vitals_monitor.h"
+#include <vitals_monitor.h>
 #include <algorithm>  // For std::for_each, std::find_if, std::none_of
-#include <functional> // For std::function
+#include <functional>  // For std::function
+#include <utility>
 
 // Struct to hold conversion information
 struct ConversionRule {
@@ -64,8 +65,11 @@ bool vitalsOk(std::vector<VitalData>* vitalArray) {
     });
 
     // Then, check if none of the vitals have a critical status
-    return std::none_of(vitalArray->begin(), vitalArray->end(), [&criticalStatuses](const VitalData& vital) {
+    return std::none_of(vitalArray->begin(), vitalArray->end(), 
+                       [&criticalStatuses](const VitalData& vital) {
         // Use std::find instead of == to check if the vital status is in criticalStatuses
-        return std::find(criticalStatuses.begin(), criticalStatuses.end(), vital.status) != criticalStatuses.end();
+        return std::find(criticalStatuses.begin(), 
+                         criticalStatuses.end(), 
+                         vital.status) != criticalStatuses.end();
     });
 }
