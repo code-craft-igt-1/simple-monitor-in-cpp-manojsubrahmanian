@@ -1,5 +1,5 @@
-#include <gtest/gtest.h>
-#include <vitals_monitor.h>
+#include "gtest/gtest.h"
+#include "./vitals_monitor.h"
 
 // Test for checking the vitals and updating status correctly with conversions
 TEST(VitalMonitorTest, VitalsOkWithConversionsTest) {

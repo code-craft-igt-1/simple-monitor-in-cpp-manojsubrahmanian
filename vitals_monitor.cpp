@@ -1,4 +1,4 @@
-#include <vitals_monitor.h>
+#include "./vitals_monitor.h"
 #include <algorithm>  // For std::for_each, std::find_if, std::none_of
 #include <functional>  // For std::function
 #include <utility>
