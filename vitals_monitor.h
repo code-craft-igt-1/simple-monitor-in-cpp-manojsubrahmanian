@@ -12,7 +12,7 @@ enum VitalType { TEMPERATURE, PULSE_RATE, SPO2 };
 enum VitalUnit { FAHRENHEIT, CELSIUS, BPM, PERCENTAGE };
 
 // Enum for vital status
-enum VitalStatus { LOW, NEAR_LOW, NORMAL, NEAR_HIGH, HIGH };
+enum VitalStatus { LOW, NEAR_LOW, NORMAL, NEAR_HIGH, HIGH, UNKNOWN };
 
 // Struct to store thresholds for a vital
 struct VitalLimits {
@@ -22,12 +22,14 @@ struct VitalLimits {
     double high;
 };
 
-// Struct to hold the vital type, unit, and value
+// Struct to hold the vital type, unit, value, and status (initially UNKNOWN)
 struct VitalData {
     VitalType type;
     VitalUnit unit;
     double value;
+    VitalStatus status = UNKNOWN;  // Initialize as UNKNOWN
 };
+
 
 // Static map associating VitalType with corresponding thresholds
 static const std::map<VitalType, VitalLimits> vitalThresholds = {
@@ -39,6 +41,6 @@ static const std::map<VitalType, VitalLimits> vitalThresholds = {
 // Function declarations
 double convertToCommonUnit(double value, VitalType type, VitalUnit unit);
 VitalStatus checkVitalStatus(double value, const VitalLimits& limits);
-bool vitalsOk(const std::vector<VitalData>& vitalArray, const std::map<VitalType, std::map<VitalStatus, std::string>>& vitalMessages);
+bool vitalsOk(std::vector<VitalData>& vitalArray);
 
 #endif
