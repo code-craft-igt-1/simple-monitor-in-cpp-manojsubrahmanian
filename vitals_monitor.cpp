@@ -1,6 +1,6 @@
 #include "vitals_monitor.h"
 #include <algorithm>  // For std::for_each, std::find_if, std::none_of
-#include <functional>  // For std::function
+#include <functional> // For std::function
 
 // Struct to hold conversion information
 struct ConversionRule {
@@ -31,9 +31,11 @@ double convertToCommonUnit(double value, VitalType type, VitalUnit unit) {
 }
 
 // Function to check and update the vital status based on the thresholds
-void checkVitalStatus(VitalData& vital) {
-    double convertedValue = convertToCommonUnit(vital.value, vital.type, vital.unit);
-    const VitalLimits& limits = vitalThresholds.at(vital.type);
+void checkVitalStatus(VitalData* vital) {
+    if (vital == nullptr) return;  // Guard clause for null pointers
+
+    double convertedValue = convertToCommonUnit(vital->value, vital->type, vital->unit);
+    const VitalLimits& limits = vitalThresholds.at(vital->type);
 
     // Array of thresholds to map ranges to status
     std::vector<std::pair<double, VitalStatus>> thresholds = {
@@ -44,23 +46,25 @@ void checkVitalStatus(VitalData& vital) {
     };
 
     // Use std::find_if to determine the correct status and update the vital status directly
-    vital.status = std::find_if(thresholds.begin(), thresholds.end(),
+    vital->status = std::find_if(thresholds.begin(), thresholds.end(),
                                 [convertedValue](const std::pair<double, VitalStatus>& limit) {
                                     return convertedValue <= limit.first;
                                 })->second;
 }
 
 // Function to check if all vitals are okay, without using any == or && operators
-bool vitalsOk(std::vector<VitalData>& vitalArray) {
+bool vitalsOk(std::vector<VitalData>* vitalArray) {
+    if (vitalArray == nullptr) return true;  // Guard clause for null pointers
+
     std::vector<VitalStatus> criticalStatuses = {LOW, HIGH};
 
     // First, update the status of each vital
-    std::for_each(vitalArray.begin(), vitalArray.end(), [](VitalData& vital) {
-        checkVitalStatus(vital);
+    std::for_each(vitalArray->begin(), vitalArray->end(), [](VitalData& vital) {
+        checkVitalStatus(&vital);  // Pass a pointer to each vital
     });
 
     // Then, check if none of the vitals have a critical status
-    return std::none_of(vitalArray.begin(), vitalArray.end(), [&criticalStatuses](const VitalData& vital) {
+    return std::none_of(vitalArray->begin(), vitalArray->end(), [&criticalStatuses](const VitalData& vital) {
         // Use std::find instead of == to check if the vital status is in criticalStatuses
         return std::find(criticalStatuses.begin(), criticalStatuses.end(), vital.status) != criticalStatuses.end();
     });

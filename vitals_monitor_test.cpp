@@ -11,7 +11,7 @@ TEST(VitalMonitorTest, VitalsOkWithConversionsTest) {
     };
 
     // Process the vitals and check their status
-    bool result = vitalsOk(vitalArray);
+    bool result = vitalsOk(&vitalArray);
 
     // Check that vitalsOk returns false since there are critical vitals
     EXPECT_FALSE(result);
@@ -32,7 +32,7 @@ TEST(VitalMonitorTest, VitalsNoConversionTest) {
     };
 
     // Process the vitals and check their status
-    bool result = vitalsOk(vitalArray);
+    bool result = vitalsOk(&vitalArray);
 
     // Check that vitalsOk returns true since all vitals are in normal range
     EXPECT_TRUE(result);

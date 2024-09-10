@@ -1,5 +1,4 @@
-#ifndef VITAL_MESSAGES_DE_H
-#define VITAL_MESSAGES_DE_H
+#pragma once
 
 #include "vitals_monitor.h"
 #include <map>
@@ -29,4 +28,3 @@ static const std::map<VitalType, std::map<VitalStatus, std::string>> vitalMessag
     }}
 };
 
-#endif

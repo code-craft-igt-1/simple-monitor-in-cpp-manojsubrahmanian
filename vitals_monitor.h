@@ -1,5 +1,4 @@
-#ifndef VITALS_MONITOR_H
-#define VITALS_MONITOR_H
+#pragma once
 
 #include <string>
 #include <map>
@@ -41,6 +40,4 @@ static const std::map<VitalType, VitalLimits> vitalThresholds = {
 // Function declarations
 double convertToCommonUnit(double value, VitalType type, VitalUnit unit);
 VitalStatus checkVitalStatus(double value, const VitalLimits& limits);
-bool vitalsOk(std::vector<VitalData>& vitalArray);
-
-#endif
+bool vitalsOk(std::vector<VitalData>* vitalArray);
