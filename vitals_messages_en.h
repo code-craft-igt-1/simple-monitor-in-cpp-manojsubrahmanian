@@ -1,7 +1,7 @@
 #pragma once
-
-#include "vitals_monitor.h"
+#include <vitals_monitor.h>
 #include <map>
+#include <string>
 
 // Static map associating VitalType with corresponding error messages in English
 static const std::map<VitalType, std::map<VitalStatus, std::string>> vitalMessagesEn = {

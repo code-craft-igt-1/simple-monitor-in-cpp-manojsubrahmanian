@@ -65,11 +65,11 @@ bool vitalsOk(std::vector<VitalData>* vitalArray) {
     });
 
     // Then, check if none of the vitals have a critical status
-    return std::none_of(vitalArray->begin(), vitalArray->end(), 
+    return std::none_of(vitalArray->begin(), vitalArray->end(),
                        [&criticalStatuses](const VitalData& vital) {
         // Use std::find instead of == to check if the vital status is in criticalStatuses
-        return std::find(criticalStatuses.begin(), 
-                         criticalStatuses.end(), 
+        return std::find(criticalStatuses.begin(),
+                         criticalStatuses.end(),
                          vital.status) != criticalStatuses.end();
     });
 }
