@@ -30,7 +30,7 @@ void showAlertWithAnimation(const std::string &message, int durationInSeconds) {
 
 void validateAndAlert(bool isInRange, const std::string &message) {
   if (!isInRange) {
-    showAlertWithAnimation(message, 2);
+    showAlertWithAnimation(message, 0);
   }
 }
 
