@@ -34,17 +34,20 @@ void showAlertAnimation(int durationInSeconds) {
     std::cout << "\n";
 }
 
+void printVitalStatus(const VitalData& vital, const std::map<VitalStatus, std::string>& messageMap) {
+    // Find the alert message for the current vital type and status
+    auto messageIt = messageMap.find(vital.status);
+
+    // Print the message if found
+    if (messageIt != messageMap.end()) {
+        std::cout << messageIt->second << std::endl;
+    }
+}
+
 // Function to print alert based on the vital's status using the selected message map and language
 void printAlert(const VitalData& vital, Language language) {
     // Find the alert message for the current vital type and status in the selected language
-    auto messageIt = vitalMessages.at(language).find(vital.type);
-
-    if (messageIt != vitalMessages.at(language).end()) {
-        auto statusIt = messageIt->second.find(vital.status);
-        if (statusIt != messageIt->second.end()) {
-            std::cout << statusIt->second << "\n";
-        }
-    }
+    printVitalStatus(vital, vitalMessages.at(language).at(vital.type));
 
     // Check if status is critical and trigger animation
     if (std::find(criticalStatuses.begin(), criticalStatuses.end(), vital.status) != criticalStatuses.end()) {
