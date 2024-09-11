@@ -1,9 +1,12 @@
 #pragma once
-#include "vitals_monitor.h"
+#include "./vitals_monitor.h"
 #include <map>
+#include <string>
 
 // Combined message map with language as the outer index
-static const std::map<Language, std::map<VitalType, std::map<VitalStatus, std::string>>> vitalMessages = {
+static const std::map<Language, std::map<VitalType, 
+                                std::map<VitalStatus, 
+                                std::string>>> vitalMessages = {
     // English messages
     {
         ENGLISH, {

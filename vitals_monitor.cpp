@@ -34,7 +34,8 @@ void showAlertAnimation(int durationInSeconds) {
     std::cout << "\n";
 }
 
-void printVitalStatus(const VitalData& vital, const std::map<VitalStatus, std::string>& messageMap) {
+void printVitalStatus(const VitalData& vital, const std::map<VitalStatus, 
+                                              std::string>& messageMap) {
     // Find the alert message for the current vital type and status
     auto messageIt = messageMap.find(vital.status);
 
@@ -50,7 +51,8 @@ void printAlert(const VitalData& vital, Language language) {
     printVitalStatus(vital, vitalMessages.at(language).at(vital.type));
 
     // Check if status is critical and trigger animation
-    if (std::find(criticalStatuses.begin(), criticalStatuses.end(), vital.status) != criticalStatuses.end()) {
+    if (std::find(criticalStatuses.begin(), criticalStatuses.end(), 
+                                            vital.status) != criticalStatuses.end()) {
         showAlertAnimation(2);
     }
 }
